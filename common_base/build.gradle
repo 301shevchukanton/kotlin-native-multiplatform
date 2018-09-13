@@ -1,0 +1,29 @@
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "https://kotlin.bintray.com/kotlinx" }
+    maven { url  "http://dl.bintray.com/kotlin/ktor" }  // ktor maven
+// ktor maven
+}
+
+apply plugin: 'kotlin-platform-common'
+apply plugin: 'kotlinx-serialization'
+
+sourceSets {
+    main.kotlin.srcDir 'src'
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
+    testCompile 'org.jetbrains.kotlin:kotlin-test-annotations-common'
+    testCompile 'org.jetbrains.kotlin:kotlin-test-common'
+    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
+    implementation "io.ktor:ktor:$ktor_version" // ktor dependency
+    compile "io.ktor:ktor-client-apache:$ktor_version"
+}
+sourceSets {
+    main.kotlin.srcDir 'src'
+}
+kotlin.experimental.coroutines 'enable'
+

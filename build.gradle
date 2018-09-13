@@ -1,0 +1,22 @@
+buildscript {
+    ext.kotlin_version = '1.2.61'
+    ext.ktor_version = '0.9.4'
+    ext.serialization_version = '0.6.1'
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+    }
+}
+//
+//repositories {
+//    maven { url 'https://kotlin.bintray.com/kotlinx' }
+//    maven { url 'https://dl.bintray.com/kotlin/ktor' }
+//    jcenter()
+//}
