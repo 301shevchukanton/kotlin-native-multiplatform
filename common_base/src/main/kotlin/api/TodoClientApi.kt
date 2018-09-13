@@ -5,7 +5,9 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.*
 import io.ktor.http.URLProtocol
 import kotlinx.coroutines.experimental.CoroutineDispatcher
+import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.withContext
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.list
 
@@ -13,57 +15,58 @@ internal expect val ApplicationDispatcher: CoroutineDispatcher
 
 class TodoClientApi {
     private val client = HttpClient()
-    fun getAll(callback: (List<Todo>) -> Unit) {
-        launch(ApplicationDispatcher) {
+    suspend fun getAll(): List<Todo> {
+        return withContext(ApplicationDispatcher) {
             val result: String = client.get {
                 getHttpRequestBuilder(this, path = "/getAll")
             }
             println(result)
-            callback(JSON.parse(Todo.serializer().list, result))
+            JSON.parse(Todo.serializer().list, result)
         }
     }
 
-    fun get(itemIndex: Int, callback: (Todo) -> Unit) {
-        launch(ApplicationDispatcher) {
+    suspend fun get(itemIndex: Int): Todo {
+        return withContext(ApplicationDispatcher) {
             val result: String = client.get {
                 getHttpRequestBuilder(this, path = "/$itemIndex")
             }
             println(result)
-            callback(JSON.parse(result))
+            JSON.parse<Todo>(result)
         }
     }
 
-    fun add(todo: Todo, callback: (Todo) -> Unit) {
-        launch(ApplicationDispatcher) {
+    suspend fun add(todo: Todo): Todo {
+        return withContext(ApplicationDispatcher) {
+
             val result: String = client.post {
                 getHttpRequestBuilder(this, todo = todo)
             }
             println(result)
-            callback(todo)
+            todo
         }
     }
 
-    fun update(todo: Todo, callback: (Todo) -> Unit) {
-        launch(ApplicationDispatcher) {
+    suspend fun update(todo: Todo): Todo {
+        return withContext(ApplicationDispatcher) {
             val result: String = client.put {
                 getHttpRequestBuilder(this, todo = todo)
             }
             println(result)
-            callback(todo)
+            todo
         }
     }
 
-    fun delete(todo: Todo, callback: (Boolean) -> Unit) {
-       delete(todo.id, callback)
+    suspend fun delete(todo: Todo): Boolean {
+        return delete(todo.id)
     }
 
-    fun delete(id: String, callback: (Boolean) -> Unit) {
-        launch(ApplicationDispatcher) {
+    suspend fun delete(id: String): Boolean {
+        return withContext(ApplicationDispatcher) {
             val result: String = client.delete {
                 getHttpRequestBuilder(this, path = "/$id")
             }
             println(result)
-            callback(true)
+            true
         }
     }
 
