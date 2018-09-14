@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JSON
 
 @Serializable
-data class Todo(val id: String,
+data class Todo(val id: String? = null,
                 val description: String,
                 val status: Status) {
 
