@@ -4,7 +4,6 @@ pluginManagement {
             if (requested.id.id == "kotlin-platform-common") {
                 useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
             }
-
             if (requested.id.id == "kotlin-platform-jvm") {
                 useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
             }
@@ -12,5 +11,5 @@ pluginManagement {
     }
 }
 rootProject.name = 'kotlin_native_example'
-include 'common_base', 'server'
+include 'common_base', 'server', 'android_platform', ':androidapplication'
 

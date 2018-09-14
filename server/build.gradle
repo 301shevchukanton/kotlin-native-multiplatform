@@ -17,6 +17,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile "io.ktor:ktor:$ktor_version" // ktor dependency
     compile "io.ktor:ktor-server-netty:$ktor_version" // ktor netty dependency}
+    compile "io.ktor:ktor-client-apache:$ktor_version"
+
     compile"com.github.salomonbrys.kodein:kodein:4.1.0"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
 

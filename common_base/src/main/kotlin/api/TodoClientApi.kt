@@ -5,8 +5,6 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.*
 import io.ktor.http.URLProtocol
 import kotlinx.coroutines.experimental.CoroutineDispatcher
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.list

@@ -20,7 +20,7 @@ dependencies {
     testCompile 'org.jetbrains.kotlin:kotlin-test-common'
     compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
     implementation "io.ktor:ktor:$ktor_version" // ktor dependency
-    compile "io.ktor:ktor-client-apache:$ktor_version"
+    compile "io.ktor:ktor-client:$ktor_version"
 }
 sourceSets {
     main.kotlin.srcDir 'src'

@@ -4,19 +4,26 @@ buildscript {
     ext.serialization_version = '0.6.1'
     repositories {
         maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url 'https://maven.google.com' }
         maven { url "https://kotlin.bintray.com/kotlinx" }
         jcenter()
+        google()
+        mavenCentral()
     }
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:0.9"
         classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
+        classpath 'com.android.tools.build:gradle:3.3.0-alpha06'
         classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
     }
 }
-//
-//repositories {
-//    maven { url 'https://kotlin.bintray.com/kotlinx' }
-//    maven { url 'https://dl.bintray.com/kotlin/ktor' }
-//    jcenter()
-//}
+
+repositories {
+    maven { url 'https://kotlin.bintray.com/kotlinx' }
+    maven { url 'https://dl.bintray.com/kotlin/ktor' }
+    jcenter()
+    google()
+    mavenCentral()
+}
