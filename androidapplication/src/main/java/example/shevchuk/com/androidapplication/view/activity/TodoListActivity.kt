@@ -15,10 +15,10 @@ import example.shevchuk.com.androidapplication.R
 import example.shevchuk.com.androidapplication.view.recycler_view.TodoAdapter
 import example.shevchuk.com.androidapplication.view.view_model.TodoListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 /**

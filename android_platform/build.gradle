@@ -2,7 +2,9 @@ repositories {
     mavenCentral()
     jcenter()
     maven { url "https://kotlin.bintray.com/kotlinx" }
-    maven { url "http://dl.bintray.com/kotlin/ktor" }  // ktor maven
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    maven { url "http://dl.bintray.com/kotlin/ktor" }  // ktor
+    google()
 // ktor maven
 }
 apply plugin: 'com.android.library'
@@ -28,16 +30,11 @@ android {
 
 }
 
-repositories {
-    google()
-    jcenter()
-    mavenCentral()
-}
-
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     expectedBy project(':common_base')
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.26.1-eap13'
     implementation "io.ktor:ktor:$ktor_version" // ktor dependency
     implementation "io.ktor:ktor-client-android:$ktor_version"
     implementation "com.android.support:appcompat-v7:27.0.2"

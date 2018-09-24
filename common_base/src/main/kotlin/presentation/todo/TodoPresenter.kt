@@ -2,9 +2,9 @@ package presentation.todo
 
 import entity.Status
 import entity.Todo
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.launch
 import presentation.base.BasePresenter
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlin.coroutines.CoroutineContext
 
 class TodoPresenter(
 		private val uiContext: CoroutineContext,

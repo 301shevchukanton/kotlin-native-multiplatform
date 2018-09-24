@@ -4,8 +4,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import entity.Status
 import entity.Todo
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.android.Main
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.android.Main
 import presentation.todo.TodoInteractorImpl
 import presentation.todo.TodoPresenter
 import presentation.todo.TodoView

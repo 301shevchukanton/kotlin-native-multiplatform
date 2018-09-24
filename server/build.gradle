@@ -2,6 +2,7 @@
 repositories {
     mavenCentral()
     jcenter()
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     maven { url "https://kotlin.bintray.com/kotlinx" }
     maven { url  "http://dl.bintray.com/kotlin/ktor" }  // ktor maven
 // ktor maven
@@ -18,10 +19,9 @@ dependencies {
     compile "io.ktor:ktor:$ktor_version" // ktor dependency
     compile "io.ktor:ktor-server-netty:$ktor_version" // ktor netty dependency}
     compile "io.ktor:ktor-client-apache:$ktor_version"
-
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.26.1-eap13'
     compile"com.github.salomonbrys.kodein:kodein:4.1.0"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
-
 }
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
