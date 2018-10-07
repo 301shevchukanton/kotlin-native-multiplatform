@@ -1,15 +1,9 @@
-repositories {
-    mavenCentral()
-    jcenter()
-    maven { url "https://kotlin.bintray.com/kotlinx" }
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
-    maven { url "http://dl.bintray.com/kotlin/ktor" }  // ktor
-    google()
-// ktor maven
-}
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-platform-android'
 apply plugin: 'kotlinx-serialization'
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -29,6 +23,20 @@ android {
     }
 
 }
+
+repositories {
+    maven { url "https://kotlin.bintray.com/kotlinx" }
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    maven {
+        url "https://maven.google.com"
+    }
+    google()
+    maven { url "http://dl.bintray.com/kotlin/ktor" }  // ktor mave
+
+    jcenter()
+}
+
+//apply plugin: 'kotlin-platform-android'
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

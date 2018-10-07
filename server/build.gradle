@@ -10,7 +10,6 @@ repositories {
 apply plugin: 'java'
 apply plugin: 'kotlin-platform-jvm'
 apply plugin: 'kotlinx-serialization'
-apply plugin: 'com.github.johnrengelman.shadow'
 
 dependencies {
     expectedBy project(":common_base")
