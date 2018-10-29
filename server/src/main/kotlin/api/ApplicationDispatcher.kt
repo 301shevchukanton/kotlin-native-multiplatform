@@ -1,7 +1,7 @@
 package api
 
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.DefaultDispatcher
+import kotlinx.coroutines.Dispatchers
 
 
-internal actual val ApplicationDispatcher: CoroutineDispatcher = DefaultDispatcher
+internal actual val ApplicationDispatcher: CoroutineDispatcher = Dispatchers.Default

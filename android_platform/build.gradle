@@ -45,5 +45,5 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.26.1-eap13'
     implementation "io.ktor:ktor:$ktor_version" // ktor dependency
     implementation "io.ktor:ktor-client-android:$ktor_version"
-    implementation "com.android.support:appcompat-v7:27.0.2"
+    implementation "com.android.support:appcompat-v7:27.1.1"
 }

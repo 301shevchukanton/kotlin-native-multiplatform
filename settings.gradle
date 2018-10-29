@@ -11,5 +11,4 @@ pluginManagement {
     }
 }
 rootProject.name = 'kotlin_native_example'
-include 'common_base', 'server', 'android_platform', ':androidapplication',
-        ':ios_platform'
+include 'common_base', 'server', 'android_platform', ':androidapplication'

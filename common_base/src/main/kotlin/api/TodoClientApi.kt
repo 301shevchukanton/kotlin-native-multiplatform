@@ -6,30 +6,35 @@ import io.ktor.client.request.*
 import io.ktor.http.URLProtocol
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.JSON
-import kotlinx.serialization.list
 
 internal expect val ApplicationDispatcher: CoroutineDispatcher
 
 class TodoClientApi {
+	companion object {
+		val PORT = 8080
+		val HOST_ADDRESS = "127.0.0.1"
+		val API_ROOT_LOCATION = "/api/v1/"
+	}
+
 	private val client = HttpClient()
+
 	suspend fun getAll(): List<Todo> {
 		return withContext(ApplicationDispatcher) {
 			val result: String = client.get {
-				getHttpRequestBuilder(this, path = "/getAll")
+				getHttpRequestBuilder(this, path = "${API_ROOT_LOCATION}getAll")
 			}
 			println(result)
-			JSON.parse(Todo.serializer().list, result)
+			Todo.jsonArrayToList(result)
 		}
 	}
 
 	suspend fun get(itemIndex: Int): Todo {
 		return withContext(ApplicationDispatcher) {
 			val result: String = client.get {
-				getHttpRequestBuilder(this, path = "/$itemIndex")
+				getHttpRequestBuilder(this, path = "$API_ROOT_LOCATION$itemIndex")
 			}
 			println(result)
-			JSON.parse<Todo>(result)
+			Todo.fromJson(result)
 		}
 	}
 
@@ -63,7 +68,7 @@ class TodoClientApi {
 	suspend fun delete(id: String): Boolean {
 		return withContext(ApplicationDispatcher) {
 			val result: String = client.delete {
-				getHttpRequestBuilder(this, path = "/$id")
+				getHttpRequestBuilder(this, path = "$API_ROOT_LOCATION$id")
 			}
 			println(result)
 			true
@@ -71,16 +76,16 @@ class TodoClientApi {
 	}
 
 	private fun getHttpRequestBuilder(httpRequestBuilder: HttpRequestBuilder,
-	                                  path: String = "/",
+	                                  path: String = API_ROOT_LOCATION,
 	                                  todo: Todo? = null) {
 		httpRequestBuilder.url {
 			protocol = URLProtocol.HTTP
-			port = 8080
-			host = "192.168.0.103"
+			port = PORT
+			host = HOST_ADDRESS
 			encodedPath = path
 		}
 		todo?.apply {
-			httpRequestBuilder.body = JSON.stringify(todo)
+			httpRequestBuilder.body = Todo.toJson(todo)
 		}
 	}
 }

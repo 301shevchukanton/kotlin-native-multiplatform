@@ -2,6 +2,7 @@ package presentation.todo
 
 import entity.Status
 import entity.Todo
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import presentation.base.BasePresenter
 import kotlin.coroutines.CoroutineContext
@@ -16,7 +17,7 @@ class TodoPresenter(
 	}
 
 	fun refresh() {
-		launch(uiContext) {
+		CoroutineScope(uiContext).launch {
 			view?.showLoading(true)
 			try {
 				val todoList = todoInteractor.loadData()
