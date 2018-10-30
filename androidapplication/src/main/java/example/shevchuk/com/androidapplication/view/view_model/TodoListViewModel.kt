@@ -5,46 +5,45 @@ import android.arch.lifecycle.ViewModel
 import entity.Status
 import entity.Todo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.android.Main
-import presentation.todo.TodoInteractorImpl
-import presentation.todo.TodoPresenter
-import presentation.todo.TodoView
+import presentation.todo.list.TodoListInteractorImpl
+import presentation.todo.list.TodoListPresenter
+import presentation.todo.list.TodoListView
 import java.io.Serializable
 
 /**
  * Created by Anton Shevchuk on 16.09.2018.
  */
 
-class TodoListViewModel : ViewModel(), TodoView {
+class TodoListViewModel : ViewModel(), TodoListView {
 
 	class State(var todoItems: List<Todo> = emptyList(),
 	            var isInProgress: Boolean = false) : Serializable
 
 	val todoListLiveData = MutableLiveData<State>()
 	val errorLiveData = MutableLiveData<ViewModelError<Throwable>>()
-	private var todoPresenter: TodoPresenter
+	private var todoListPresenter: TodoListPresenter
 
 	init {
 		this.todoListLiveData.value = State(emptyList(), true)
-		this.todoPresenter = TodoPresenter(Dispatchers.Main, TodoInteractorImpl())
-		this.todoPresenter.attach(this)
+		this.todoListPresenter = TodoListPresenter(Dispatchers.Main, TodoListInteractorImpl())
+		this.todoListPresenter.attach(this)
 	}
 
 	override fun onCleared() {
-		this.todoPresenter.onViewDetached()
+		this.todoListPresenter.onViewDetached()
 		super.onCleared()
 	}
 
 	fun loadList() {
-		this.todoPresenter.refresh()
+		this.todoListPresenter.refresh()
 	}
 
 	fun addTodoItem(description: String) {
-		this.todoPresenter.onAddNewItemClicked(description, Status.IN_QUEUE)
+		this.todoListPresenter.onAddNewItemClicked(description, Status.IN_QUEUE)
 	}
 
-	override fun showTodoList(repoList: List<Todo>) {
-		this.todoListLiveData.value = State(repoList, false)
+	override fun showTodoList(todoList: List<Todo>) {
+		this.todoListLiveData.value = State(todoList, false)
 	}
 
 	override fun showLoading(loading: Boolean) {

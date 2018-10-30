@@ -10,24 +10,24 @@ class InMemoryTodoRepository(initialUsers: Map<String, Todo>) : Repository<Todo>
 		this.todos.putAll(initialUsers)
 	}
 
-	override fun createOne(todo: Todo): Todo {
+	override suspend fun create(todo: Todo): Todo {
 		val key = todo.id ?: todos.size.toString()
-		todos.put(key, todo.copy(id = key))
+		todos[key] = todo.copy(id = key)
 		return todo
 	}
 
-	override fun readAll(): List<Todo> = todos.values.toList()
+	override suspend fun readAll(): List<Todo> = todos.values.toList()
 
-	override fun readOne(id: String): Todo? = todos[id]
+	override suspend fun read(id: String): Todo? = todos[id]
 
-	override fun updateOne(todo: Todo): Todo? {
+	override suspend fun update(todo: Todo): Todo? {
 		todo.id?.let {
-			return todos.replace(it, todo)
+			return todos.put(it, todo)
 		}
 		return null
 	}
 
-	override fun deleteOne(todo: Todo): Todo? {
+	override suspend fun delete(todo: Todo): Todo? {
 		return todos.remove(todo.id)
 	}
 

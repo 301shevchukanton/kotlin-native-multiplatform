@@ -6,19 +6,20 @@ import io.ktor.client.request.*
 import io.ktor.http.URLProtocol
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import repository.Repository
 
 internal expect val ApplicationDispatcher: CoroutineDispatcher
 
-class TodoClientApi {
+class TodoClientApi : Repository<Todo> {
 	companion object {
-		val PORT = 8080
-		val HOST_ADDRESS = "127.0.0.1"
-		val API_ROOT_LOCATION = "/api/v1/"
+		const val PORT = 8080
+		const val HOST_ADDRESS = "192.168.0.102"
+		const val API_ROOT_LOCATION = "/api/v1/"
 	}
 
 	private val client = HttpClient()
 
-	suspend fun getAll(): List<Todo> {
+	override suspend fun readAll(): List<Todo> {
 		return withContext(ApplicationDispatcher) {
 			val result: String = client.get {
 				getHttpRequestBuilder(this, path = "${API_ROOT_LOCATION}getAll")
@@ -28,7 +29,7 @@ class TodoClientApi {
 		}
 	}
 
-	suspend fun get(itemIndex: Int): Todo {
+	override suspend fun read(itemIndex: String): Todo {
 		return withContext(ApplicationDispatcher) {
 			val result: String = client.get {
 				getHttpRequestBuilder(this, path = "$API_ROOT_LOCATION$itemIndex")
@@ -38,7 +39,7 @@ class TodoClientApi {
 		}
 	}
 
-	suspend fun add(todo: Todo): Todo {
+	override suspend fun create(todo: Todo): Todo {
 		return withContext(ApplicationDispatcher) {
 
 			val result: String = client.post {
@@ -49,7 +50,7 @@ class TodoClientApi {
 		}
 	}
 
-	suspend fun update(todo: Todo): Todo {
+	override suspend fun update(todo: Todo): Todo {
 		return withContext(ApplicationDispatcher) {
 			val result: String = client.put {
 				getHttpRequestBuilder(this, todo = todo)
@@ -59,19 +60,14 @@ class TodoClientApi {
 		}
 	}
 
-	suspend fun delete(todo: Todo): Boolean {
-		return todo.id?.let {
-			return delete(todo.id)
-		} ?: false
-	}
-
-	suspend fun delete(id: String): Boolean {
-		return withContext(ApplicationDispatcher) {
-			val result: String = client.delete {
-				getHttpRequestBuilder(this, path = "$API_ROOT_LOCATION$id")
+	override suspend fun delete(todo: Todo): Todo {
+		todo.id?.let {
+			withContext(ApplicationDispatcher) {
+				val result: String = client.delete {
+					getHttpRequestBuilder(this, path = "$API_ROOT_LOCATION${todo.id}")
+				}
 			}
-			println(result)
-			true
+			return todo
 		}
 	}
 

@@ -32,13 +32,12 @@ fun main(args: Array<String>) {
 
 		routing {
 			get("${API_ROOT_LOCATION}getAll") {
-				println("get all request")
 				call.respondText(
 						listToJson(repository.readAll()),
 						ContentType.Text.Html)
 			}
 			get("$API_ROOT_LOCATION{key}") {
-				val item = repository.readOne(call.parameters["key"] ?: "")
+				val item = repository.read(call.parameters["key"] ?: "")
 				if (item == null)
 					call.respond(HttpStatusCode.NotFound)
 				else
@@ -48,7 +47,7 @@ fun main(args: Array<String>) {
 				try {
 					val str = call.receiveText()
 					val item = Todo.fromJson(str)
-					repository.createOne(item)
+					repository.create(item)
 					call.respond(HttpStatusCode.Created)
 				} catch (e: Throwable) {
 					call.respond(HttpStatusCode.BadRequest)
@@ -57,7 +56,7 @@ fun main(args: Array<String>) {
 			put(API_ROOT_LOCATION) {
 				val todo = Todo.fromJson(call.receiveText())
 				try {
-					repository.updateOne(todo)
+					repository.update(todo)
 					call.respond(HttpStatusCode.OK)
 				} catch (e: Exception) {
 					call.respond(HttpStatusCode.BadRequest)
@@ -66,8 +65,8 @@ fun main(args: Array<String>) {
 			delete("$API_ROOT_LOCATION{key}") {
 				val todoId = call.parameters["key"]
 				todoId?.let { realTodoId ->
-					repository.readOne(realTodoId)?.let { readTodo ->
-						repository.deleteOne(readTodo)
+					repository.read(realTodoId)?.let { readTodo ->
+						repository.delete(readTodo)
 					}
 				}
 				call.respond(HttpStatusCode.OK)

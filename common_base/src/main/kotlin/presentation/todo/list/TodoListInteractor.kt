@@ -1,8 +1,9 @@
-package presentation.todo
+package presentation.todo.list
 
 import entity.Todo
 
-interface TodoInteractor {
+interface TodoListInteractor {
 	suspend fun loadData(): List<Todo>
 	fun addTodoItem(todo: Todo)
+
 }

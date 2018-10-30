@@ -9,7 +9,7 @@ import entity.Todo
 /**
  * Created by Anton Shevchuk on 16.09.2018.
  */
-class TodoAdapter(private val myDataSet: MutableList<Todo>) :
+class TodoAdapter(private val myDataSet: MutableList<Todo>, private val todoListClickListener: OnItemClickListener) :
 		RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
 	class TodoViewHolder(val twoLineListItem: TwoLineListItem) : RecyclerView.ViewHolder(twoLineListItem)
@@ -25,6 +25,9 @@ class TodoAdapter(private val myDataSet: MutableList<Todo>) :
 	override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
 		holder.twoLineListItem.text1.text = myDataSet[position].description
 		holder.twoLineListItem.text2.text = myDataSet[position].status.toString()
+		holder.twoLineListItem.setOnClickListener {
+			todoListClickListener.onItemClick(myDataSet[position])
+		}
 	}
 
 	override fun getItemCount() = myDataSet.size

@@ -1,10 +1,10 @@
-package presentation.todo
+package presentation.todo.list
 
 import entity.Todo
 import presentation.base.BaseView
 
-interface TodoView: BaseView {
-    fun showTodoList(repoList: List<Todo>)
+interface TodoListView: BaseView {
+    fun showTodoList(todoList: List<Todo>)
     fun showLoading(loading: Boolean)
     fun showError(errorMessage: String)
 }

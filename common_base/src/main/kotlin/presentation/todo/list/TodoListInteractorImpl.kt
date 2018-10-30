@@ -1,4 +1,4 @@
-package presentation.todo
+package presentation.todo.list
 
 import api.ApplicationDispatcher
 import api.TodoClientApi
@@ -6,15 +6,15 @@ import entity.Todo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class TodoInteractorImpl : TodoInteractor {
+class TodoListInteractorImpl : TodoListInteractor {
 	override fun addTodoItem(todo: Todo) {
 		CoroutineScope(ApplicationDispatcher).launch {
-			TodoClientApi().add(todo)
+			TodoClientApi().create(todo)
 		}
 	}
 
 	override suspend fun loadData(): List<Todo> {
-		return TodoClientApi().getAll()
+		return TodoClientApi().readAll()
 	}
 
 }

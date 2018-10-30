@@ -11,10 +11,12 @@ import android.text.InputType
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import entity.Todo
 import example.shevchuk.com.androidapplication.R
+import example.shevchuk.com.androidapplication.view.recycler_view.OnItemClickListener
 import example.shevchuk.com.androidapplication.view.recycler_view.TodoAdapter
 import example.shevchuk.com.androidapplication.view.view_model.TodoListViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_todo_list.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -39,7 +41,7 @@ class TodoListActivity : AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
+		setContentView(R.layout.activity_todo_list)
 		initRecyclerView()
 		srlRefresh.setOnRefreshListener(swipeToRefreshListener)
 		srlRefresh.setColorSchemeResources(R.color.colorPrimary,
@@ -55,7 +57,15 @@ class TodoListActivity : AppCompatActivity() {
 
 	private fun initRecyclerView() {
 		recyclerLayoutManager = LinearLayoutManager(this)
-		recyclerViewAdapter = TodoAdapter(mutableListOf())
+		recyclerViewAdapter = TodoAdapter(mutableListOf(), object : OnItemClickListener {
+			override fun onItemClick(item: Todo) {
+				item.id?.let {
+					startActivity(TodoDetailsActivity.createTodoDetailsActivityIntent(
+							this@TodoListActivity,
+							it))
+				}
+			}
+		})
 		rvTodoList.apply {
 			setHasFixedSize(true)
 			layoutManager = recyclerLayoutManager
@@ -112,7 +122,7 @@ class TodoListActivity : AppCompatActivity() {
 
 		builder.setPositiveButton(getString(R.string.ok)) { _, _ ->
 			todoListViewModel().addTodoItem(input.text.toString())
-			GlobalScope.launch(Dispatchers.Default) {
+			GlobalScope.launch(Dispatchers.Main) {
 				delay(2000)
 				todoListViewModel().loadList()
 			}

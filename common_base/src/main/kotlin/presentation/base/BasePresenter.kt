@@ -1,11 +1,11 @@
 package presentation.base
 
-abstract class BasePresenter<V : BaseView> {
+abstract class BasePresenter<View : BaseView> {
 
-    protected var view: V? = null
+    protected var view: View? = null
         private set
 
-    fun attach(view: V) {
+    fun attach(view: View) {
         this.view = view
         onViewAttached()
     }
@@ -15,13 +15,9 @@ abstract class BasePresenter<V : BaseView> {
         onViewDetached()
     }
 
-    open fun onViewAttached() {
+    open fun onViewAttached() {}
 
-    }
-
-    open fun onViewDetached() {
-
-    }
+    open fun onViewDetached() {}
 }
 
 

@@ -1,4 +1,4 @@
-package presentation.todo
+package presentation.todo.list
 
 import entity.Status
 import entity.Todo
@@ -7,9 +7,9 @@ import kotlinx.coroutines.launch
 import presentation.base.BasePresenter
 import kotlin.coroutines.CoroutineContext
 
-class TodoPresenter(
+class TodoListPresenter(
 		private val uiContext: CoroutineContext,
-		private val todoInteractor: TodoInteractor) : BasePresenter<TodoView>() {
+		private val todoListInteractor: TodoListInteractor) : BasePresenter<TodoListView>() {
 
 	override fun onViewAttached() {
 		super.onViewAttached()
@@ -20,7 +20,7 @@ class TodoPresenter(
 		CoroutineScope(uiContext).launch {
 			view?.showLoading(true)
 			try {
-				val todoList = todoInteractor.loadData()
+				val todoList = todoListInteractor.loadData()
 				view?.showTodoList(todoList)
 			} catch (e: Throwable) {
 				view?.showError(e.message ?: "Can't load todo list")
@@ -30,6 +30,6 @@ class TodoPresenter(
 	}
 
 	fun onAddNewItemClicked(description: String, status: Status) {
-		todoInteractor.addTodoItem(Todo(description = description, status = status))
+		todoListInteractor.addTodoItem(Todo(description = description, status = status))
 	}
 }
