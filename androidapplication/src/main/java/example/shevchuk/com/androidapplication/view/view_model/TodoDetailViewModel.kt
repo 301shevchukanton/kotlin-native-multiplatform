@@ -2,6 +2,7 @@ package example.shevchuk.com.androidapplication.view.view_model
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import entity.Status
 import entity.Todo
 import kotlinx.coroutines.Dispatchers
 import presentation.todo.details.TodoDetailsPresenter
@@ -19,6 +20,7 @@ class TodoDetailViewModel : ViewModel(), TodoDetailsView {
 
 	val todoLiveData = MutableLiveData<State>()
 	val errorLiveData = MutableLiveData<ViewModelError<Throwable>>()
+	val closeLiveData = MutableLiveData<Boolean>()
 	private var todoDetailsPresenter: TodoDetailsPresenter
 
 	init {
@@ -37,11 +39,28 @@ class TodoDetailViewModel : ViewModel(), TodoDetailsView {
 				loading)
 	}
 
+
+	override fun close() {
+		this.closeLiveData.value = true
+	}
+
+	override fun onDescriptionChanged(description: String) {
+		this.todoDetailsPresenter.onDescriptionChanged(description)
+	}
+
 	fun onInitialDataParsed(todoId: String) {
 		this.todoDetailsPresenter.onInitialDataParsed(todoId)
 	}
 
 	override fun displayTodoDetails(todo: Todo) {
 		this.todoLiveData.value = TodoDetailViewModel.State(todo, false)
+	}
+
+	fun statusSelected(status: Status) {
+		this.todoDetailsPresenter.onStatusChanged(status)
+	}
+
+	fun delete() {
+		this.todoDetailsPresenter.delete()
 	}
 }

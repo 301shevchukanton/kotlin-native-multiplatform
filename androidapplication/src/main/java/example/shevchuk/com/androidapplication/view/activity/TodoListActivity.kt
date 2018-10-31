@@ -22,7 +22,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
 /**
  * Created by Anton Shevchuk on 16.09.2018.
  */
@@ -100,6 +99,11 @@ class TodoListActivity : AppCompatActivity() {
 								Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
 							}
 						})
+	}
+
+	override fun onStart() {
+		super.onStart()
+		todoListViewModel().loadList()
 	}
 
 	override fun onStop() {
