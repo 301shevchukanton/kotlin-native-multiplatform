@@ -61,6 +61,6 @@ class TodoDetailViewModel : ViewModel(), TodoDetailsView {
 	}
 
 	fun delete() {
-		this.todoDetailsPresenter.delete()
+		this.todoDetailsPresenter.onDeleteTodoClicked()
 	}
 }

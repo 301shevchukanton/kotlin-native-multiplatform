@@ -22,7 +22,8 @@ class TodoClientApi : Repository<Todo> {
 	override suspend fun readAll(): List<Todo> {
 		return withContext(ApplicationDispatcher) {
 			val result: String = client.get {
-				getHttpRequestBuilder(this, path = "${API_ROOT_LOCATION}getAll")
+				getHttpRequestBuilder(this,
+						path = "${API_ROOT_LOCATION}getAll")
 			}
 			println(result)
 			Todo.jsonArrayToList(result)
@@ -63,9 +64,9 @@ class TodoClientApi : Repository<Todo> {
 	override suspend fun delete(todo: Todo): Todo {
 		todo.id?.let {
 			withContext(ApplicationDispatcher) {
-				val result: String = client.delete {
+				client.delete {
 					getHttpRequestBuilder(this, path = "$API_ROOT_LOCATION${todo.id}")
-				}
+				} as String
 			}
 			return todo
 		}

@@ -3,11 +3,11 @@ package repository
 
 import entity.Todo
 
-class InMemoryTodoRepository(initialUsers: Map<String, Todo>) : Repository<Todo> {
+class InMemoryTodoRepository(initialTodos: Map<String, Todo>) : Repository<Todo> {
 	private val todos = LinkedHashMap<String, Todo>()
 
 	init {
-		this.todos.putAll(initialUsers)
+		this.todos.putAll(initialTodos)
 	}
 
 	override suspend fun create(todo: Todo): Todo {
