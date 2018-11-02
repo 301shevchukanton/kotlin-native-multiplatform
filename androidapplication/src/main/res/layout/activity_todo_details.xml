@@ -16,7 +16,7 @@
         <EditText
             android:id="@+id/etDescription"
             android:layout_width="344dp"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="left"
             android:inputType="textPersonName"

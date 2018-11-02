@@ -18,5 +18,3 @@ abstract class BasePresenter<View : BaseView> {
     open fun onViewAttached() {}
     open fun onViewDetached() {}
 }
-
-

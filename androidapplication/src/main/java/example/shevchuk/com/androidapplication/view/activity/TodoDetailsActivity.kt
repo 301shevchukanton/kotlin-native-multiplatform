@@ -18,10 +18,6 @@ import example.shevchuk.com.androidapplication.R
 import example.shevchuk.com.androidapplication.view.view_model.TodoDetailViewModel
 import kotlinx.android.synthetic.main.activity_todo_details.*
 
-
-/**
- * Created by Anton Shevchuk on 16.09.2018.
- */
 class TodoDetailsActivity : AppCompatActivity() {
 
 	companion object {

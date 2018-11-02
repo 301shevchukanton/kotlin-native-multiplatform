@@ -14,10 +14,6 @@ import repository.InMemoryTodoRepositoryHolder
 import repository.TodoCacheProxyRepository
 import java.io.Serializable
 
-/**
- * Created by Anton Shevchuk on 16.09.2018.
- */
-
 class TodoListViewModel : ViewModel(), TodoListView {
 
 	class State(var todoItems: List<Todo> = emptyList(),
@@ -30,7 +26,9 @@ class TodoListViewModel : ViewModel(), TodoListView {
 	init {
 		this.todoListLiveData.value = State(emptyList(), true)
 		this.todoListPresenter = TodoListPresenter(Dispatchers.Main,
-				TodoListInteractorImpl(TodoCacheProxyRepository(InMemoryTodoRepositoryHolder.inMemoryTodoRepository)))
+				TodoListInteractorImpl(
+						TodoCacheProxyRepository(
+								InMemoryTodoRepositoryHolder.inMemoryTodoRepository)))
 		this.todoListPresenter.attach(this)
 	}
 
@@ -59,5 +57,4 @@ class TodoListViewModel : ViewModel(), TodoListView {
 	override fun showError(errorMessage: String) {
 		this.errorLiveData.value = ViewModelError<Throwable>(Throwable(errorMessage))
 	}
-
 }

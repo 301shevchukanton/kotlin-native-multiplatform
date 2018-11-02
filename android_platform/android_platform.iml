@@ -166,6 +166,7 @@
     <orderEntry type="module" module-name="common_base" />
     <orderEntry type="module" module-name="common_base" />
     <orderEntry type="module" module-name="common_base" />
+    <orderEntry type="module" module-name="common_base" />
     <orderEntry type="library" name="Gradle: io.ktor:ktor-client-android:1.0.0-beta-3@jar" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-io-jvm:0.1.0-beta-1@jar" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:common:1.1.0@jar" level="project" />

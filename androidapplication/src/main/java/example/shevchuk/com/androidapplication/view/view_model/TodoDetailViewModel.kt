@@ -9,10 +9,6 @@ import presentation.todo.details.TodoDetailsPresenter
 import presentation.todo.details.TodoDetailsView
 import java.io.Serializable
 
-/**
- * Created by Anton Shevchuk on 16.09.2018.
- */
-
 class TodoDetailViewModel : ViewModel(), TodoDetailsView {
 
 	class State(var todo: Todo? = null,
@@ -38,7 +34,6 @@ class TodoDetailViewModel : ViewModel(), TodoDetailsView {
 		this.todoLiveData.value = State(this.todoLiveData.value?.todo,
 				loading)
 	}
-
 
 	override fun close() {
 		this.closeLiveData.value = true

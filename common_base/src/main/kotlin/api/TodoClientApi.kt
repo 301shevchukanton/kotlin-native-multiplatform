@@ -12,7 +12,7 @@ internal expect val ApplicationDispatcher: CoroutineDispatcher
 
 class TodoClientApi : Repository<Todo> {
 	companion object {
-		const val PORT = 8080
+		const val PORT = 8088
 		const val HOST_ADDRESS = "192.168.0.102"
 		const val API_ROOT_LOCATION = "/api/v1/"
 	}

@@ -20,7 +20,7 @@ class TodoListPresenter(
 		CoroutineScope(uiContext).launch {
 			view?.showLoading(true)
 			try {
-				val todoList = todoListInteractor.loadData()
+				val todoList = todoListInteractor.loadTodoList()
 				view?.showTodoList(todoList)
 			} catch (e: Throwable) {
 				view?.showError(e.message ?: "Can't load todo list")

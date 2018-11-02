@@ -11,8 +11,18 @@ class InMemoryTodoRepository(initialTodos: Map<String, Todo>) : Repository<Todo>
 	}
 
 	override suspend fun create(todo: Todo): Todo {
-		val key = todo.id ?: todos.size.toString()
-		todos[key] = todo.copy(id = key)
+		val key = todos.entries
+				.map { it.value.id?.toInt() }
+				.maxWith(Comparator { a, b ->
+					if (a == null || b == null) {
+						0
+					} else if (a > b) {
+						1
+					} else {
+						-1
+					}
+				})?.inc().toString()
+		todos.put(key, todo.copy(id = key))
 		return todo
 	}
 

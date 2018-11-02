@@ -6,7 +6,6 @@ import com.github.salomonbrys.kodein.factory
 import dependency_injection.Injection
 import entity.Status
 import entity.Todo
-import entity.Todo.Companion.listToJson
 import io.ktor.application.call
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
@@ -33,7 +32,7 @@ fun main(args: Array<String>) {
 		routing {
 			get("${API_ROOT_LOCATION}getAll") {
 				call.respondText(
-						listToJson(repository.readAll()),
+						Todo.listToJson(repository.readAll()),
 						ContentType.Text.Html)
 			}
 			get("$API_ROOT_LOCATION{key}") {
@@ -71,7 +70,6 @@ fun main(args: Array<String>) {
 				}
 				call.respond(HttpStatusCode.OK)
 			}
-
 		}
 	}.start(wait = true)
 }

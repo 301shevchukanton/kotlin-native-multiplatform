@@ -6,9 +6,6 @@ import android.view.ViewGroup
 import android.widget.TwoLineListItem
 import entity.Todo
 
-/**
- * Created by Anton Shevchuk on 16.09.2018.
- */
 class TodoAdapter(private val myDataSet: MutableList<Todo>, private val todoListClickListener: OnItemClickListener) :
 		RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
